@@ -1,0 +1,17 @@
+1. создаем директорию:  
+mkdir test-project
+2.1 создаем html: 
+echo "<h1> Hello from Ivan Tsvetkov! </h1>" >> index.html
+2.2 создаем Docker file:
+cat > Dockerfile << 'EOF'
+FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/
+EOF
+3. создаем образ 
+docker built -t my-web-app:latest .
+4. docker run -d -p 8080:80 --name test-web-container my-web-app:latest 
+5. проверяем статус ответа и содержимое страницы по адресу
+curl -w "=== HTTP Status: %{http_code} ===\n" http://localhost:8080
+6. выполняем команду 
+docker-compose up
+7. Для этого можно использовать монтирование volumes в docker-compose.
